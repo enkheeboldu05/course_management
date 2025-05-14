@@ -10,6 +10,10 @@ import src.db.CourseDAO;
 import src.db.EnrollmentDAO;
 
 public class StudentDashboard extends JFrame {
+    private JTable availableCoursesTable;
+    private JTable myCoursesTable;
+    private JScrollPane myCoursesScrollPane;
+    private JScrollPane availableCoursesScrollPane;
     private User student;
     private CourseDAO courseDAO = new CourseDAO();
     private EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
@@ -61,7 +65,7 @@ public class StudentDashboard extends JFrame {
     private void showAvailableCourses(){
         List<Course> courses = courseDAO.getAllCourses();
 
-        String[] columnNames = {"ID", "Title", "Desciption"};
+        String[] columnNames = {"ID", "Title", "Description"};
         String[][] data = new String[courses.size()][3];
 
         for(int i = 0; i < courses.size(); i++){
@@ -71,13 +75,16 @@ public class StudentDashboard extends JFrame {
             data[i][2] = c.getDescription();
         }
 
+        if (availableCoursesScrollPane != null) remove(availableCoursesScrollPane);
+
         availableCoursesTable = new JTable(data, columnNames);
-        JScrollPane scrollPane = new JScrollPane(availableCoursesTable);
-        scrollPane.setBounds(250,70,320,200);
-        add(scrollPane);
+        availableCoursesScrollPane = new JScrollPane(availableCoursesTable);
+        availableCoursesScrollPane.setBounds(250, 70, 320, 120);
+        add(availableCoursesScrollPane);
         repaint();
         revalidate();
     }
+
 
     private void enrollInSelectedCourse() {
         if (availableCoursesTable == null || availableCoursesTable.getSelectedRow() == -1) {
@@ -109,15 +116,16 @@ public class StudentDashboard extends JFrame {
             data[i][2] = c.getDescription();
         }
 
-        JTable table = new JTable(data, columnNames);
-        JScrollPane scrollPane = new JScrollPane(table);
+        if (myCoursesScrollPane != null) remove(myCoursesScrollPane);
 
-        JFrame frame = new JFrame("My Courses");
-        frame.setSize(400, 300);
-        frame.add(scrollPane);
-        frame.setLocationRelativeTo(this);
-        frame.setVisible(true);
+        myCoursesTable = new JTable(data, columnNames);
+        myCoursesScrollPane = new JScrollPane(myCoursesTable);
+        myCoursesScrollPane.setBounds(250, 200, 320, 120);
+        add(myCoursesScrollPane);
+        repaint();
+        revalidate();
     }
+
     private void showProfile() {
         String info = "Username: " + student.getUsername() +
                   "\nEmail: " + student.getEmail() +
