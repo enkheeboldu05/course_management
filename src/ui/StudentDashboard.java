@@ -17,7 +17,6 @@ public class StudentDashboard extends JFrame {
     private User student;
     private CourseDAO courseDAO = new CourseDAO();
     private EnrollmentDAO enrollmentDAO = new EnrollmentDAO();
-    private JTable availableCoursesTable;
 
     public StudentDashboard(User student) {
         this.student = student;
