@@ -68,7 +68,4 @@ public class LoginWindow extends JFrame {
             JOptionPane.showMessageDialog(this, "Login failed!");
         }
     }
-    public static void main(String[] args) {
-    SwingUtilities.invokeLater(() -> new LoginWindow());
-    }
 }
