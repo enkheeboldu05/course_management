@@ -4,12 +4,12 @@ public class Student{
     private int id;
     private String name;
     private String email;
-    private String major;
+    private String department;
 
-    public Student(String name, String email, String major){
+    public Student(String name, String email, String department){
         this.name = name;
         this.email = email;
-        this.major = major;
+        this.department = department;
     }
     
     public int getId(){ return id; }
@@ -21,6 +21,6 @@ public class Student{
     public String getEmail(){ return email; }
     public void setEmail(String email){ this.email = email; }
 
-    public String getMajor(){ return major; }
-    public void setMajor(){ this.major = major; }
+    public String getDepartment(){ return department; }
+    public void setDepartment(){ this.department = department; }
 }

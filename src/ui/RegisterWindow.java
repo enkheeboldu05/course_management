@@ -8,13 +8,14 @@ public class RegisterWindow extends JFrame {
     private JTextField usernameField, emailField;
     private JPasswordField passwordField;
     private JComboBox<String> roleCombo;
+    private JTextField departmentField;
     private JButton submitButton;
     private UserDAO userDAO = new UserDAO();
 
     public RegisterWindow() {
         setTitle("Register");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(300, 250);
+        setSize(300, 300);
         setLayout(null);
 
         JLabel userLabel = new JLabel("Username:");
@@ -49,8 +50,16 @@ public class RegisterWindow extends JFrame {
         roleCombo.setBounds(100, 140, 160, 25);
         add(roleCombo);
 
+        JLabel deptLabel = new JLabel("Department: ");
+        deptLabel.setBounds(20, 180, 80, 25);
+        add(deptLabel);
+
+        departmentField = new JTextField();
+        departmentField.setBounds(100,180,160,25);
+        add(departmentField);
+
         submitButton = new JButton("Register");
-        submitButton.setBounds(90, 180, 120, 25);
+        submitButton.setBounds(90, 220, 120, 25);
         add(submitButton);
 
         submitButton.addActionListener(e -> handleRegister());
@@ -63,14 +72,17 @@ public class RegisterWindow extends JFrame {
         String password = new String(passwordField.getPassword());
         String email = emailField.getText();
         String role = (String) roleCombo.getSelectedItem();
+        String department = departmentField.getText();
 
-        User user = new User(username, password, email);
+        User user = new User(username, password, email, department);
         user.setRole(role);
+        user.setDepartment(department);
+
         if (userDAO.registerUser(user)) {
             JOptionPane.showMessageDialog(this, "Registration successful. Please login.");
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Registration failed.");
         }
-    }
+}
 }

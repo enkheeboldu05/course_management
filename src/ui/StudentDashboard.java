@@ -38,6 +38,10 @@ public class StudentDashboard extends JFrame {
         viewEnrolledBtn.setBounds(30, 150, 200, 30);
         add(viewEnrolledBtn);
 
+        JButton profileBtn = new JButton("View My Profile");
+        profileBtn.setBounds(30,230, 200, 30);
+        add(profileBtn);
+        
         JButton logoutBtn = new JButton("Logout");
         logoutBtn.setBounds(30, 190, 200, 30);
         add(logoutBtn);
@@ -45,6 +49,7 @@ public class StudentDashboard extends JFrame {
         viewAvailableBtn.addActionListener(e -> showAvailableCourses());
         enrollBtn.addActionListener(e -> enrollInSelectedCourse());
         viewEnrolledBtn.addActionListener(e -> showMyCourses());
+        profileBtn.addActionListener( e-> showProfile());
         logoutBtn.addActionListener(e -> {
             dispose();
             new LoginWindow();
@@ -112,5 +117,11 @@ public class StudentDashboard extends JFrame {
         frame.add(scrollPane);
         frame.setLocationRelativeTo(this);
         frame.setVisible(true);
+    }
+    private void showProfile() {
+        String info = "Username: " + student.getUsername() +
+                  "\nEmail: " + student.getEmail() +
+                  "\nDepartment: " + student.getDepartment();
+        JOptionPane.showMessageDialog(this, info, "My Profile", JOptionPane.INFORMATION_MESSAGE);
     }
 }

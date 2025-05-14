@@ -43,6 +43,10 @@ public class TeacherDashboard extends JFrame {
         viewCoursesBtn.setBounds(120, 170, 150, 30);
         add(viewCoursesBtn);
 
+        JButton profileBtn = new JButton("View My Profile");
+        profileBtn.setBounds(30,230, 200, 30);
+        add(profileBtn);
+
         JButton logoutBtn = new JButton("Logout");
         logoutBtn.setBounds(120, 210, 150, 30);
         add(logoutBtn);
@@ -52,6 +56,7 @@ public class TeacherDashboard extends JFrame {
         viewStudentsBtn.addActionListener(e -> viewStudents());
         addCourseBtn.addActionListener(e -> addCourse());
         viewCoursesBtn.addActionListener(e -> viewCourses());
+        profileBtn.addActionListener( e-> showProfile());
         logoutBtn.addActionListener(e -> {
             dispose();
             new LoginWindow();
@@ -63,24 +68,24 @@ public class TeacherDashboard extends JFrame {
     private void addStudent() {
         JTextField nameField = new JTextField();
         JTextField emailField = new JTextField();
-        JTextField majorField = new JTextField();
+        JTextField departmentField = new JTextField();
 
         Object[] fields = {
             "Name:", nameField,
             "Email:", emailField,
-            "Major:", majorField
+            "Department:", departmentField
         };
 
         int option = JOptionPane.showConfirmDialog(this, fields, "Add Student", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION) {
-            Student student = new Student(nameField.getText(), emailField.getText(), majorField.getText());
+            Student student = new Student(nameField.getText(), emailField.getText(), departmentField.getText());
             studentDAO.addStudent(student);
         }
     }
 
     private void viewStudents() {
         List<Student> students = studentDAO.getAllStudents();
-        String[] columnNames = {"ID", "Name", "Email", "Major"};
+        String[] columnNames = {"ID", "Name", "Email", "Department"};
         String[][] data = new String[students.size()][4];
 
         for (int i = 0; i < students.size(); i++) {
@@ -88,7 +93,7 @@ public class TeacherDashboard extends JFrame {
             data[i][0] = String.valueOf(s.getId());
             data[i][1] = s.getName();
             data[i][2] = s.getEmail();
-            data[i][3] = s.getMajor();
+            data[i][3] = s.getDepartment();
         }
 
         JTable table = new JTable(data, columnNames);
@@ -138,4 +143,12 @@ public class TeacherDashboard extends JFrame {
         tableFrame.setLocationRelativeTo(this);
         tableFrame.setVisible(true);
     }
+
+    private void showProfile() {
+        String info = "Username: " + teacher.getUsername() +
+                  "\nEmail: " + teacher.getEmail() +
+                  "\nDepartment: " + teacher.getDepartment();
+        JOptionPane.showMessageDialog(this, info, "My Profile", JOptionPane.INFORMATION_MESSAGE);
+    }
+
 }

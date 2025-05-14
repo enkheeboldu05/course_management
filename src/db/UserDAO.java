@@ -8,7 +8,7 @@ public class UserDAO {
 
     public boolean registerUser(User user) {
         String checkQuery = "SELECT * FROM users WHERE username = ?";
-        String insertQuery = "INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO users (username, password, email, role, department) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
@@ -26,6 +26,7 @@ public class UserDAO {
             insertStmt.setString(2, hashedPassword);
             insertStmt.setString(3, user.getEmail());
             insertStmt.setString(4, user.getRole());
+            insertStmt.setString(5, user.getDepartment());
             insertStmt.executeUpdate();
 
             System.out.println("✅ Registration successful!");
@@ -53,10 +54,12 @@ public class UserDAO {
                 User user = new User(
                     rs.getString("username"),
                     "", 
-                    rs.getString("email")
+                    rs.getString("email"),
+                    ""
                 );
                 user.setId(rs.getInt("id"));
                 user.setRole(rs.getString("role"));
+                user.setDepartment(rs.getString("department"));
                 System.out.println("✅ Login successful as " + user.getRole());
                 return user;
             } else {

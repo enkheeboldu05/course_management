@@ -9,14 +9,14 @@ import src.db.DBConnection;
 public class StudentDAO {
 
     public boolean addStudent(Student student) {
-        String sql = "INSERT INTO students (name, email, major) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO students (name, email, department) VALUES (?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, student.getName());
             stmt.setString(2, student.getEmail());
-            stmt.setString(3, student.getMajor());
+            stmt.setString(3, student.getDepartment());
 
             stmt.executeUpdate();
             System.out.println("✅ Student added successfully.");
@@ -40,7 +40,7 @@ public class StudentDAO {
                 Student student = new Student(
                     rs.getString("name"),
                     rs.getString("email"),
-                    rs.getString("major")
+                    rs.getString("department")
                 );
                 student.setId(rs.getInt("id"));
                 studentList.add(student);
