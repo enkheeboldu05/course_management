@@ -6,7 +6,6 @@ import src.model.User;
 
 public class UserDAO {
 
-    // Register a new user
     public boolean registerUser(User user) {
         String checkQuery = "SELECT * FROM users WHERE username = ?";
         String insertQuery = "INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)";
@@ -15,18 +14,14 @@ public class UserDAO {
              PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
              PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
 
-            // Check if username already exists
             checkStmt.setString(1, user.getUsername());
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next()) {
                 System.out.println("❌ Username already exists!");
                 return false;
             }
-
-            // Hash password before storing
             String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 
-            // Insert user
             insertStmt.setString(1, user.getUsername());
             insertStmt.setString(2, hashedPassword);
             insertStmt.setString(3, user.getEmail());
@@ -42,7 +37,6 @@ public class UserDAO {
         }
     }
 
-    // Login user
     public User loginUser(String username, String password) {
     String query = "SELECT * FROM users WHERE username = ?";
 
@@ -56,10 +50,9 @@ public class UserDAO {
             String storedHash = rs.getString("password");
 
             if (BCrypt.checkpw(password, storedHash)) {
-                // ✅ Create and return the logged-in user object
                 User user = new User(
                     rs.getString("username"),
-                    "", // don't return raw password
+                    "", 
                     rs.getString("email")
                 );
                 user.setId(rs.getInt("id"));
@@ -77,7 +70,7 @@ public class UserDAO {
         System.out.println("❌ Login error: " + e.getMessage());
     }
 
-    return null; // login failed
+    return null; 
 }
 
 }

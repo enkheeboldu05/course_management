@@ -8,8 +8,8 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/studentdb?useSSL=false&allowPublicKeyRetrieval=true";
-    private static final String USER = "javauser";   // or "root"
-    private static final String PASSWORD = "javapass";  // use your actual password
+    private static final String USER = "javauser";   
+    private static final String PASSWORD = "javapass";  
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);

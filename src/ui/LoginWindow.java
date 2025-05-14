@@ -58,7 +58,7 @@ public class LoginWindow extends JFrame {
         User user = userDAO.loginUser(username, password);
         if (user != null) {
             JOptionPane.showMessageDialog(this, "Welcome " + user.getUsername() + "!");
-            dispose(); // close login window
+            dispose(); 
             if ("teacher".equals(user.getRole())) {
                 new TeacherDashboard(user);
             } else {

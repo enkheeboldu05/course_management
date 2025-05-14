@@ -6,15 +6,13 @@ public class User {
     private String password;
     private String email;
     private String role;
-
-    // Constructor (without id)
+ 
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    // Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
