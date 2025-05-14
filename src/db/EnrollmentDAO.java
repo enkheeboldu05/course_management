@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import src.model.Course;
+import src.model.Student;
 
 public class EnrollmentDAO {
     public boolean enrollStudent(int studentId, int courseId) {
@@ -51,4 +52,34 @@ public class EnrollmentDAO {
 
         return courses;
     }
+
+    public List<Student> getStudentsByCourseId(int courseId) {
+        List<Student> students = new ArrayList<>();
+        String sql = "SELECT u.id, u.username, u.email, u.department FROM enrollments e " +
+                 "JOIN users u ON e.student_id = u.id " +
+                 "WHERE e.course_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, courseId);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Student s = new Student(
+                rs.getString("username"),
+                rs.getString("email"),
+                rs.getString("department")
+            );
+            s.setId(rs.getInt("id"));
+            students.add(s);
+        }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error retrieving students for course: " + e.getMessage());
+        }
+
+    return students;    
+    }
+
 }
