@@ -60,7 +60,7 @@ public class StudentDashboard extends JFrame {
         String[][] data = new String[courses.size()][3];
 
         for(int i = 0; i < courses.size(); i++){
-            Cource c = courses.get(i);
+            Course c = courses.get(i);
             data[i][0] = String.valueOf(c.getId());
             data[i][1] = c.getTitle();
             data[i][2] = c.getDescription();
@@ -73,7 +73,7 @@ public class StudentDashboard extends JFrame {
         repaint();
         revalidate();
     }
-    
+
     private void enrollInSelectedCourse() {
         if (availableCoursesTable == null || availableCoursesTable.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "❌ Please select a course to enroll.");
