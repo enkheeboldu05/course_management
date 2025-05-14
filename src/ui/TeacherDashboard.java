@@ -73,11 +73,6 @@ public class TeacherDashboard extends JFrame {
         logoutBtn.setBounds(startX, startY + (height + gap) * line++, width, height);
         add(logoutBtn);
 
-        // Table display area
-        displayScrollPane = new JScrollPane();
-        displayScrollPane.setBounds(260, 60, 500, 260);
-        add(displayScrollPane);
-
         // === Action Listeners ===
         addStudentBtn.addActionListener(e -> addStudent());
         viewStudentsBtn.addActionListener(e -> displayStudents());
@@ -94,14 +89,19 @@ public class TeacherDashboard extends JFrame {
     }
 
     private void setTableContent(String[][] data, String[] columns) {
-        if (displayScrollPane != null) remove(displayScrollPane);
+        if (displayScrollPane != null) {
+            remove(displayScrollPane); // remove the old one
+        }
+
         displayTable = new JTable(data, columns);
         displayScrollPane = new JScrollPane(displayTable);
         displayScrollPane.setBounds(260, 60, 500, 260);
         add(displayScrollPane);
+    
         repaint();
         revalidate();
     }
+
 
     private void addStudent() {
         JTextField nameField = new JTextField();
