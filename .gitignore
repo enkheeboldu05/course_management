@@ -1,0 +1,6 @@
+# .gitignore
+build/
+*.class
+*.log
+*.db
+.DS_Store
