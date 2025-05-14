@@ -32,7 +32,9 @@ public class TeacherDashboard extends JFrame {
         String[] courseTitles = allCourses.stream()
             .map(c -> c.getId() + " - " + c.getTitle())
             .toArray(String[]::new);
-
+        courseComboBox = new JComboBox<>(courseTitles);
+        courseComboBox.setBounds(120, 250, 150, 25);
+        add(courseComboBox);
 
         JLabel welcomeLabel = new JLabel("Welcome, " + teacher.getUsername());
         welcomeLabel.setBounds(20, 20, 300, 25);
@@ -61,11 +63,7 @@ public class TeacherDashboard extends JFrame {
         logoutBtn.setBounds(120, 210, 150, 30);
         add(logoutBtn);
 
-        courseComboBox = new JComboBox<>(courseTitles);
-        courseComboBox.setBounds(120, 250, 150, 25);
-        add(courseComboBox);
-
-        viewEnrolledStudentsBtn = new JButton("View Enrolled Students");
+        JButton viewEnrolledStudentsBtn = new JButton("View Enrolled Students");
         viewEnrolledStudentsBtn.setBounds(120, 290, 180, 30);
         add(viewEnrolledStudentsBtn);
 
