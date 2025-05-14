@@ -20,7 +20,7 @@ public class TeacherDashboard extends JFrame {
 
         setTitle("Teacher Dashboard - " + teacher.getUsername());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(400, 400);
         setLayout(null);
         setLocationRelativeTo(null);
 
@@ -44,7 +44,7 @@ public class TeacherDashboard extends JFrame {
         add(viewCoursesBtn);
 
         JButton profileBtn = new JButton("View My Profile");
-        profileBtn.setBounds(30,230, 200, 30);
+        profileBtn.setBounds(120 ,250, 150, 30);
         add(profileBtn);
 
         JButton logoutBtn = new JButton("Logout");
