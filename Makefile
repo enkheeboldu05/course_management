@@ -3,8 +3,7 @@ JAVA=java
 SRC=src
 BIN=build
 LIB=lib
-CP=.:$(LIB)/jbcrypt-0.4.jar:/usr/share/java/mysql-connector-java-8.0.33.jar
-
+CP=.:$(LIB)/jbcrypt-0.4.jar:/usr/share/java/mysql-connector-java-9.3.0.jar
 SOURCES=$(shell find $(SRC) -name "*.java")
 
 all:
